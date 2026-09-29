@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { LogIn, Menu, X } from "lucide-react";
-import logo from "../assets/orbital-logo.png";
+import logo from "../assets/orbital-logo.webp";
 import { Button } from "../ui/button";
 import { cn } from "../ui/utils";
 import { PORTAL, SECCIONES } from "../datos/contenido";

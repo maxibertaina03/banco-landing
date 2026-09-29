@@ -1,4 +1,4 @@
-import logo from "../assets/orbital-logo.png";
+import logo from "../assets/orbital-logo.webp";
 import { PORTAL } from "../datos/contenido";
 
 const COLUMNAS = [
