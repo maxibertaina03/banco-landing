@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Banco Orbital — Tu dinero, siempre en órbita</title>
+    <meta
+      name="description"
+      content="Cuentas en pesos y dólares, transferencias al instante a cualquier banco, tarjetas de crédito por nivel, préstamos, plazos fijos y pago de servicios. Todo online, desde donde estés."
+    />
+    <meta name="theme-color" content="#0A0118" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="estilos.css" />
+    <!-- Marca que hay JS ANTES de pintar. El efecto de aparición se aplica sólo
+         con esta clase puesta: si el JS no carga, las tarjetas se ven igual en
+         vez de quedar invisibles para siempre. -->
+    <script>document.documentElement.classList.add("con-js");</script>
+
+    <meta property="og:title" content="Banco Orbital" />
+    <meta property="og:description" content="Tu dinero, siempre en órbita." />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_AR" />
+  </head>
+
+  <body>
+    <a class="saltar" href="#productos">Saltar al contenido</a>
+
+    <!-- ── Header ──────────────────────────────────────────────────────────── -->
+    <header class="cabecera" id="cabecera">
+      <div class="contenedor cabecera__fila">
+        <a class="marca" href="#inicio" aria-label="Banco Orbital, inicio">
+          <img src="assets/orbital-logo.png" alt="Banco Orbital" width="653" height="242" />
+        </a>
+
+        <nav class="navegacion" id="navegacion" aria-label="Secciones">
+          <a href="#productos">Productos</a>
+          <a href="#tarjetas">Tarjetas</a>
+          <a href="#beneficios">Beneficios</a>
+          <a href="#como-empezar">Cómo empezar</a>
+          <a href="#preguntas">Preguntas</a>
+          <!-- En teléfonos angostos el botón de registro no entra al lado del de
+               Home banking, así que aparece acá: registrarse no puede quedar
+               escondido en ningún tamaño de pantalla. -->
+          <a class="solo-movil" href="https://app.orbitalbank.com.ar/registro">Registrate</a>
+        </nav>
+
+        <!-- Los dos accesos al sistema. Van juntos y a la derecha, que es donde
+             la gente los busca en el sitio de cualquier banco. -->
+        <div class="accesos">
+          <a class="boton boton--fantasma" href="https://app.orbitalbank.com.ar/registro">Registrate</a>
+          <a class="boton boton--primario" href="https://app.orbitalbank.com.ar/ingresar">
+            <svg class="boton__icono" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M11 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h5M15 12H9m6 0-3-3m3 3-3 3M19 12h-4" />
+            </svg>
+            Home banking
+          </a>
+        </div>
+
+        <button class="menu-boton" id="menu-boton" aria-expanded="false" aria-controls="navegacion" aria-label="Abrir el menú">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <main id="inicio">
+      <!-- ── Hero ──────────────────────────────────────────────────────────── -->
+      <section class="hero">
+        <div class="hero__orbitas" aria-hidden="true">
+          <span class="anillo anillo--1"></span>
+          <span class="anillo anillo--2"></span>
+          <span class="anillo anillo--3"></span>
+        </div>
+
+        <div class="contenedor hero__grilla">
+          <div class="hero__texto">
+            <p class="etiqueta">Banca digital</p>
+            <h1>Tu dinero, <span class="degradado">siempre en órbita</span>.</h1>
+            <p class="bajada">
+              Abrí tu cuenta en minutos y manejá todo desde un solo lugar: pesos y dólares,
+              transferencias a cualquier banco, tarjetas, préstamos e inversiones.
+            </p>
+
+            <div class="hero__acciones">
+              <a class="boton boton--primario boton--grande" href="https://app.orbitalbank.com.ar/registro">
+                Abrí tu cuenta
+              </a>
+              <a class="boton boton--borde boton--grande" href="https://app.orbitalbank.com.ar/ingresar">
+                Ya soy cliente
+              </a>
+            </div>
+
+            <ul class="hero__sellos">
+              <li>Sin costo de apertura</li>
+              <li>100&nbsp;% online</li>
+              <li>Caja en dólares incluida</li>
+            </ul>
+          </div>
+
+          <!-- La tarjeta que flota: es el mismo plástico que ve el cliente
+               adentro del portal, en su versión Gold. -->
+          <div class="hero__visual" aria-hidden="true">
+            <div class="plastico plastico--gold">
+              <div class="plastico__top">
+                <span>Orbital Crédito · Gold</span>
+                <svg class="plastico__chip" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>
+              </div>
+              <p class="plastico__numero">**** **** **** 4297</p>
+              <div class="plastico__pie">
+                <div><small>Titular</small><span>NOMBRE APELLIDO</span></div>
+                <div><small>Vence</small><span>09/31</span></div>
+              </div>
+            </div>
+            <div class="plastico plastico--fondo"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Productos ─────────────────────────────────────────────────────── -->
+      <section class="seccion" id="productos">
+        <div class="contenedor">
+          <header class="seccion__encabezado">
+            <p class="etiqueta">Productos</p>
+            <h2>Todo lo que necesitás, en una sola app</h2>
+            <p class="seccion__bajada">
+              Nada de trámites ni sucursales: cada producto se abre, se usa y se controla
+              desde el portal.
+            </p>
+          </header>
+
+          <div class="grilla grilla--productos">
+            <article class="tarjeta revelar">
+              <span class="icono">
+                <svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 10h18M7 15h4"/></svg>
+              </span>
+              <h3>Cuentas en pesos y en dólares</h3>
+              <p>
+                Tu caja de ahorro en pesos desde el primer día, y la de dólares cuando la
+                quieras, con un toque. CBU y alias propios para que te transfieran de
+                cualquier banco.
+              </p>
+            </article>
+
+            <article class="tarjeta revelar">
+              <span class="icono">
+                <svg viewBox="0 0 24 24"><path d="M7 7h11l-3-3M17 17H6l3 3"/></svg>
+              </span>
+              <h3>Transferencias al instante</h3>
+              <p>
+                A cualquier banco del país, por CBU o por alias. Guardás tus destinatarios
+                frecuentes y cada operación te deja un comprobante en PDF para descargar o
+                mandar.
+              </p>
+            </article>
+
+            <article class="tarjeta revelar">
+              <span class="icono">
+                <svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 11h18"/></svg>
+              </span>
+              <h3>Tarjetas de débito y crédito</h3>
+              <p>
+                La de débito sale al instante atada a tu cuenta. La de crédito llega con el
+                nivel que te corresponde, y podés bloquearla vos mismo si la perdés.
+              </p>
+            </article>
+
+            <article class="tarjeta revelar">
+              <span class="icono">
+                <svg viewBox="0 0 24 24"><path d="M12 3 2 9h20zM4 9v8m4-8v8m4-8v8m4-8v8m4-8v8M2 21h20"/></svg>
+              </span>
+              <h3>Préstamos personales</h3>
+              <p>
+                Simulá el crédito con las tasas del día, mirá la cuota antes de decidir y
+                recibí el dinero en tu cuenta. Cuotas fijas, sin sorpresas.
+              </p>
+            </article>
+
+            <article class="tarjeta revelar">
+              <span class="icono">
+                <svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 3 8-8"/><path d="M14 7h6v6"/></svg>
+              </span>
+              <h3>Plazos fijos</h3>
+              <p>
+                Hacé rendir lo que no estás usando. Elegís el plazo, ves cuánto vas a
+                cobrar al vencimiento y lo constituís en el momento.
+              </p>
+            </article>
+
+            <article class="tarjeta revelar">
+              <span class="icono">
+                <svg viewBox="0 0 24 24"><path d="M12 2v20M17 6H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </span>
+              <h3>Dólares a un toque</h3>
+              <p>
+                Comprá y vendé al precio del día, de tu caja en pesos a la de dólares.
+                Con un botón que carga todo el saldo disponible, para no hacer cuentas.
+              </p>
+            </article>
+
+            <article class="tarjeta revelar">
+              <span class="icono">
+                <svg viewBox="0 0 24 24"><path d="M5 4h14v16l-7-3-7 3z"/><path d="M9 9h6M9 13h4"/></svg>
+              </span>
+              <h3>Servicios y recargas</h3>
+              <p>
+                Pagá la luz, el gas o el cable leyendo la factura directo de la empresa, y
+                cargá el celular sin salir del portal.
+              </p>
+            </article>
+
+            <article class="tarjeta revelar">
+              <span class="icono">
+                <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9"/><path d="M12 7v5l3 2"/><circle cx="19" cy="5" r="2"/></svg>
+              </span>
+              <h3>Asistente inteligente</h3>
+              <p>
+                Preguntale en qué gastaste el mes pasado o cuánto tenés disponible, y te
+                contesta al instante. Sólo consulta: nunca mueve tu plata.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Tarjetas por nivel ────────────────────────────────────────────── -->
+      <section class="seccion seccion--alterna" id="tarjetas">
+        <div class="contenedor">
+          <header class="seccion__encabezado">
+            <p class="etiqueta">Tarjetas de crédito</p>
+            <h2>Cuatro niveles, uno para cada momento</h2>
+            <p class="seccion__bajada">
+              El límite no lo pedís: lo define el banco según tu situación crediticia y tu
+              saldo. A medida que crece tu relación con nosotros, subís de nivel.
+            </p>
+          </header>
+
+          <div class="grilla grilla--niveles">
+            <article class="nivel nivel--standard revelar">
+              <span class="nivel__chip">Standard</span>
+              <p class="nivel__limite">$ 300.000</p>
+              <p class="nivel__limite-rotulo">de límite</p>
+              <ul>
+                <li>Compras en hasta 12 cuotas</li>
+                <li>Resumen mensual y control de consumos</li>
+              </ul>
+            </article>
+
+            <article class="nivel nivel--gold revelar">
+              <span class="nivel__chip">Gold</span>
+              <p class="nivel__limite">$ 1.500.000</p>
+              <p class="nivel__limite-rotulo">de límite</p>
+              <ul>
+                <li>Todo lo de Standard</li>
+                <li>Seguro de viaje básico</li>
+                <li>Asistencia automotriz</li>
+              </ul>
+            </article>
+
+            <article class="nivel nivel--platinum revelar">
+              <span class="nivel__chip">Platinum</span>
+              <p class="nivel__limite">$ 5.000.000</p>
+              <p class="nivel__limite-rotulo">de límite</p>
+              <ul>
+                <li>Todo lo de Gold</li>
+                <li>Asistencia en viajes con cobertura global</li>
+                <li>Salas VIP de aeropuertos</li>
+                <li>Seguros de compra y garantía extendida</li>
+              </ul>
+            </article>
+
+            <article class="nivel nivel--black revelar">
+              <span class="nivel__chip">Black</span>
+              <p class="nivel__limite">$ 15.000.000</p>
+              <p class="nivel__limite-rotulo">de límite</p>
+              <ul>
+                <li>Todo lo de Platinum</li>
+                <li>Salas VIP sin límite de accesos</li>
+                <li>Conserjería 24 horas</li>
+                <li>Las coberturas más amplias del banco</li>
+              </ul>
+            </article>
+          </div>
+
+          <p class="nota">
+            Los niveles disponibles se calculan con tu situación en la Central de Deudores y
+            el saldo de tus cuentas. Entrá al portal y fijate cuál te corresponde hoy.
+          </p>
+        </div>
+      </section>
+
+      <!-- ── Beneficios ────────────────────────────────────────────────────── -->
+      <section class="seccion" id="beneficios">
+        <div class="contenedor">
+          <header class="seccion__encabezado">
+            <p class="etiqueta">Por qué Orbital</p>
+            <h2>Un banco que no te hace perder tiempo</h2>
+          </header>
+
+          <div class="grilla grilla--beneficios">
+            <article class="beneficio revelar">
+              <h3>Sin costo de mantenimiento</h3>
+              <p>Abrir la cuenta, tener la tarjeta y transferir no te cuesta nada.</p>
+            </article>
+            <article class="beneficio revelar">
+              <h3>Todo en el celular</h3>
+              <p>El portal funciona igual de bien en el teléfono que en la computadora.</p>
+            </article>
+            <article class="beneficio revelar">
+              <h3>Cada movimiento, documentado</h3>
+              <p>Comprobante en PDF de tus transferencias y resumen de gastos por período.</p>
+            </article>
+            <article class="beneficio revelar">
+              <h3>Vos tenés el control</h3>
+              <p>Bloqueás y desbloqueás tu tarjeta cuando quieras, sin llamar a nadie.</p>
+            </article>
+            <article class="beneficio revelar">
+              <h3>Dólares sin vueltas</h3>
+              <p>Comprás y vendés a la cotización del día, entre tus propias cuentas.</p>
+            </article>
+            <article class="beneficio revelar">
+              <h3>Seguridad de banco</h3>
+              <p>Ingreso verificado, cada operación auditada y datos cifrados de punta a punta.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Cómo empezar ──────────────────────────────────────────────────── -->
+      <section class="seccion seccion--alterna" id="como-empezar">
+        <div class="contenedor">
+          <header class="seccion__encabezado">
+            <p class="etiqueta">Cómo empezar</p>
+            <h2>Tu cuenta, en tres pasos</h2>
+          </header>
+
+          <ol class="pasos">
+            <li class="revelar">
+              <span class="paso__numero">1</span>
+              <h3>Registrate</h3>
+              <p>Con tu correo y una contraseña. Te lleva menos de un minuto.</p>
+            </li>
+            <li class="revelar">
+              <span class="paso__numero">2</span>
+              <h3>Completá tus datos</h3>
+              <p>Nombre, DNI y teléfono. Con eso queda abierta tu caja de ahorro en pesos.</p>
+            </li>
+            <li class="revelar">
+              <span class="paso__numero">3</span>
+              <h3>Empezá a operar</h3>
+              <p>Pedí la tarjeta, abrí la cuenta en dólares y recibí tu primera transferencia.</p>
+            </li>
+          </ol>
+
+          <div class="centro">
+            <a class="boton boton--primario boton--grande" href="https://app.orbitalbank.com.ar/registro">
+              Crear mi cuenta
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Preguntas ─────────────────────────────────────────────────────── -->
+      <section class="seccion" id="preguntas">
+        <div class="contenedor contenedor--angosto">
+          <header class="seccion__encabezado">
+            <p class="etiqueta">Preguntas frecuentes</p>
+            <h2>Lo que todos preguntan</h2>
+          </header>
+
+          <details class="pregunta">
+            <summary>¿Cuánto cuesta abrir una cuenta?</summary>
+            <p>Nada. Ni la apertura ni el mantenimiento tienen costo.</p>
+          </details>
+
+          <details class="pregunta">
+            <summary>¿Puedo recibir transferencias de otros bancos?</summary>
+            <p>
+              Sí. Tu cuenta tiene CBU y alias propios, así que te pueden transferir desde
+              cualquier banco del país y el dinero se acredita en tu cuenta.
+            </p>
+          </details>
+
+          <details class="pregunta">
+            <summary>¿Qué necesito para pedir una tarjeta de crédito?</summary>
+            <p>
+              Tener tu perfil completo y una situación crediticia en orden. El banco evalúa
+              tu situación en la Central de Deudores y el saldo de tus cuentas, y te ofrece
+              los niveles a los que llegás. El límite lo define el nivel, no lo pedís vos.
+            </p>
+          </details>
+
+          <details class="pregunta">
+            <summary>¿Cómo compro dólares?</summary>
+            <p>
+              Desde la sección Dólares del portal, entre tu caja en pesos y tu caja en
+              dólares, a la cotización del momento. Si todavía no tenés cuenta en dólares,
+              la abrís ahí mismo.
+            </p>
+          </details>
+
+          <details class="pregunta">
+            <summary>¿Mi plata está segura?</summary>
+            <p>
+              El ingreso está protegido con verificación de identidad, cada operación queda
+              registrada en una auditoría y los datos viajan cifrados. Además podés bloquear
+              tu tarjeta al instante desde el portal.
+            </p>
+          </details>
+
+          <details class="pregunta">
+            <summary>¿Necesito instalar una aplicación?</summary>
+            <p>
+              No. Orbital funciona desde el navegador, en la computadora o en el celular,
+              con la misma experiencia.
+            </p>
+          </details>
+        </div>
+      </section>
+
+      <!-- ── Cierre ────────────────────────────────────────────────────────── -->
+      <section class="cierre">
+        <div class="contenedor centro">
+          <h2>¿Empezamos?</h2>
+          <p class="bajada">Abrí tu cuenta hoy y operá desde donde estés.</p>
+          <div class="hero__acciones centro-acciones">
+            <a class="boton boton--primario boton--grande" href="https://app.orbitalbank.com.ar/registro">Abrí tu cuenta</a>
+            <a class="boton boton--borde boton--grande" href="https://app.orbitalbank.com.ar/ingresar">Entrar al home banking</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ── Footer ──────────────────────────────────────────────────────────── -->
+    <footer class="pie">
+      <div class="contenedor pie__grilla">
+        <div>
+          <img class="pie__logo" src="assets/orbital-logo.png" alt="Banco Orbital" width="653" height="242" />
+          <p class="pie__lema">Tu dinero, siempre en órbita.</p>
+        </div>
+
+        <nav aria-label="Productos">
+          <h4>Productos</h4>
+          <a href="#productos">Cuentas</a>
+          <a href="#tarjetas">Tarjetas</a>
+          <a href="#productos">Préstamos</a>
+          <a href="#productos">Plazos fijos</a>
+        </nav>
+
+        <nav aria-label="Banco">
+          <h4>Banco</h4>
+          <a href="#beneficios">Beneficios</a>
+          <a href="#como-empezar">Cómo empezar</a>
+          <a href="#preguntas">Preguntas frecuentes</a>
+        </nav>
+
+        <nav aria-label="Acceso">
+          <h4>Acceso</h4>
+          <a href="https://app.orbitalbank.com.ar/ingresar">Home banking</a>
+          <a href="https://app.orbitalbank.com.ar/registro">Registrate</a>
+        </nav>
+      </div>
+
+      <div class="contenedor pie__legal">
+        <p>© <span id="anio">2026</span> Banco Orbital.</p>
+        <p class="pie__aviso">
+          Proyecto académico. Banco Orbital no es una entidad financiera real y no capta
+          fondos del público.
+        </p>
+      </div>
+    </footer>
+
+    <script src="landing.js" defer></script>
+  </body>
+</html>

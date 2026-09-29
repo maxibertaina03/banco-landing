@@ -1,0 +1,794 @@
+/* Banco Orbital — landing.
+ *
+ * Mismos colores que el portal (banco-frontend/src/styles/theme.css) para que
+ * el salto de la landing al home banking no se note: mismo violeta, mismo fondo
+ * casi negro, mismas tarjetas.
+ *
+ * CSS a mano y sin build: la landing son tres archivos que nginx sirve tal
+ * cual. En un droplet de 512 MB, no compilar nada es una ventaja concreta.
+ */
+
+:root {
+  --fondo: #0a0118;
+  --fondo-alterno: #12042099;
+  --tarjeta: #1c0b2e;
+  --tarjeta-borde: rgba(168, 85, 247, 0.15);
+  --primario: #a855f7;
+  --primario-claro: #c084fc;
+  --acento: #7c3aed;
+  --texto: #e9d5ff;
+  --texto-fuerte: #ffffff;
+  --texto-suave: #9f7aea;
+  --radio: 0.75rem;
+  --radio-grande: 1.5rem;
+  --ancho: 1140px;
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* El header es sticky: sin esto, al saltar a una sección el título queda
+     tapado. */
+  scroll-padding-top: 90px;
+}
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  color: var(--texto-fuerte);
+  line-height: 1.15;
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+p { margin: 0; }
+img { max-width: 100%; height: auto; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.contenedor {
+  width: 100%;
+  max-width: var(--ancho);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.contenedor--angosto { max-width: 760px; }
+.centro { text-align: center; }
+
+.saltar {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--primario);
+  color: #14061f;
+  padding: 10px 18px;
+  border-radius: 0 0 var(--radio) 0;
+  z-index: 100;
+}
+.saltar:focus { left: 0; }
+
+/* ── Botones ────────────────────────────────────────────────────────────── */
+
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.boton:hover { transform: translateY(-1px); }
+.boton:active { transform: translateY(0); }
+
+.boton--primario {
+  background: var(--primario);
+  color: #14061f;
+}
+.boton--primario:hover { background: var(--primario-claro); }
+
+.boton--fantasma {
+  color: var(--texto);
+  border: 1px solid transparent;
+}
+.boton--fantasma:hover {
+  border-color: var(--tarjeta-borde);
+  background: rgba(168, 85, 247, 0.08);
+}
+
+.boton--borde {
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  color: var(--texto);
+}
+.boton--borde:hover { background: rgba(168, 85, 247, 0.12); }
+
+.boton--grande {
+  padding: 14px 30px;
+  font-size: 1.02rem;
+}
+
+.boton__icono {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+
+.cabecera {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(10, 1, 24, 0.72);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+/* Al bajar, el header se despega del hero con una línea. Lo activa landing.js. */
+.cabecera.esta-abajo {
+  border-bottom-color: var(--tarjeta-borde);
+  background: rgba(10, 1, 24, 0.92);
+}
+
+.cabecera__fila {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  height: 72px;
+}
+
+.marca img { height: 34px; width: auto; }
+
+.navegacion {
+  display: flex;
+  gap: 26px;
+  margin-left: auto;
+  font-size: 0.95rem;
+}
+
+.navegacion a {
+  color: var(--texto);
+  opacity: 0.85;
+  padding: 6px 0;
+  border-bottom: 2px solid transparent;
+}
+.navegacion a:hover {
+  opacity: 1;
+  border-bottom-color: var(--primario);
+}
+
+.accesos {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.menu-boton {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: 0;
+  padding: 8px;
+  cursor: pointer;
+}
+.menu-boton span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--texto);
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.menu-boton[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.menu-boton[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.menu-boton[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Hero ───────────────────────────────────────────────────────────────── */
+
+.hero {
+  position: relative;
+  padding: 90px 0 110px;
+  overflow: hidden;
+  background:
+    radial-gradient(90% 120% at 15% 0%, rgba(124, 58, 237, 0.28) 0%, transparent 55%),
+    radial-gradient(70% 90% at 90% 20%, rgba(168, 85, 247, 0.18) 0%, transparent 60%);
+}
+
+/* Los anillos: la marca es una órbita, así que el fondo también. */
+.hero__orbitas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.anillo {
+  position: absolute;
+  border: 1px solid rgba(196, 181, 253, 0.12);
+  border-radius: 50%;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+}
+.anillo--1 { width: 620px; height: 620px; }
+.anillo--2 { width: 900px; height: 900px; border-color: rgba(196, 181, 253, 0.08); }
+.anillo--3 { width: 1250px; height: 1250px; border-color: rgba(196, 181, 253, 0.05); }
+
+.hero__grilla {
+  position: relative;
+  display: grid;
+  gap: 56px;
+  align-items: center;
+  grid-template-columns: 1.05fr 0.95fr;
+}
+
+.etiqueta {
+  display: inline-block;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--primario-claro);
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 5.2vw, 4rem);
+  margin-bottom: 20px;
+}
+
+.degradado {
+  background: linear-gradient(120deg, var(--primario-claro), #e9d5ff 60%, var(--primario));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.bajada {
+  font-size: 1.1rem;
+  color: rgba(233, 213, 255, 0.78);
+  max-width: 34rem;
+}
+
+.hero__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 34px;
+}
+
+.centro-acciones { justify-content: center; }
+
+.hero__sellos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  list-style: none;
+  padding: 0;
+  margin: 36px 0 0;
+  font-size: 0.92rem;
+  color: var(--texto-suave);
+}
+.hero__sellos li { display: flex; align-items: center; gap: 8px; }
+.hero__sellos li::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primario);
+}
+
+/* ── El plástico que flota ──────────────────────────────────────────────── */
+
+.hero__visual {
+  position: relative;
+  min-height: 300px;
+  display: grid;
+  place-items: center;
+}
+
+.plastico {
+  width: min(380px, 88%);
+  aspect-ratio: 1.586;
+  border-radius: var(--radio-grande);
+  padding: 22px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7);
+}
+
+.plastico--gold {
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(135deg, #6b4e0f 0%, #b08a2e 55%, #e8c97a 100%);
+  transform: rotate(-5deg);
+  animation: flotar 7s ease-in-out infinite;
+}
+
+/* La segunda tarjeta, apenas asomando: da profundidad sin robar atención. */
+.plastico--fondo {
+  position: absolute;
+  z-index: 1;
+  background: linear-gradient(135deg, #1f2937, #4b5563);
+  transform: rotate(6deg) translate(18px, 26px);
+  opacity: 0.55;
+}
+
+@keyframes flotar {
+  0%, 100% { transform: rotate(-5deg) translateY(0); }
+  50%      { transform: rotate(-5deg) translateY(-14px); }
+}
+
+.plastico__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: 0.86rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.plastico__chip {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.7);
+  stroke-width: 1.6;
+}
+
+.plastico__numero {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 1.16rem;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+
+.plastico__pie {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-size: 0.76rem;
+}
+.plastico__pie small {
+  display: block;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.68rem;
+}
+
+/* ── Secciones ──────────────────────────────────────────────────────────── */
+
+.seccion { padding: 92px 0; }
+
+.seccion--alterna {
+  background: var(--fondo-alterno);
+  border-block: 1px solid var(--tarjeta-borde);
+}
+
+.seccion__encabezado {
+  max-width: 660px;
+  margin: 0 auto 52px;
+  text-align: center;
+}
+
+.seccion__encabezado h2 {
+  font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+  margin-bottom: 14px;
+}
+
+.seccion__bajada {
+  color: rgba(233, 213, 255, 0.7);
+  font-size: 1.05rem;
+}
+
+.grilla { display: grid; gap: 22px; }
+
+.grilla--productos { grid-template-columns: repeat(4, 1fr); }
+.grilla--niveles { grid-template-columns: repeat(4, 1fr); }
+.grilla--beneficios { grid-template-columns: repeat(3, 1fr); }
+
+/* ── Tarjetas de producto ───────────────────────────────────────────────── */
+
+.tarjeta {
+  background: var(--tarjeta);
+  border: 1px solid var(--tarjeta-borde);
+  border-radius: var(--radio-grande);
+  padding: 26px 24px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.tarjeta:hover {
+  transform: translateY(-4px);
+  border-color: rgba(168, 85, 247, 0.4);
+}
+
+.tarjeta h3 {
+  font-size: 1.08rem;
+  margin: 16px 0 10px;
+}
+
+.tarjeta p {
+  font-size: 0.93rem;
+  color: rgba(233, 213, 255, 0.68);
+}
+
+.icono {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: rgba(168, 85, 247, 0.12);
+  border: 1px solid var(--tarjeta-borde);
+}
+
+.icono svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: var(--primario-claro);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── Niveles de tarjeta ─────────────────────────────────────────────────── */
+
+.nivel {
+  background: var(--tarjeta);
+  border: 1px solid var(--tarjeta-borde);
+  border-radius: var(--radio-grande);
+  padding: 26px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Una franja arriba con el color del nivel: el mismo que el plástico del
+   portal. Es lo que hace que se reconozcan de un vistazo. */
+.nivel::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+}
+.nivel--standard::before { background: linear-gradient(90deg, #374151, #94a3b8); }
+.nivel--gold::before     { background: linear-gradient(90deg, #6b4e0f, #e8c97a); }
+.nivel--platinum::before { background: linear-gradient(90deg, #3f4a5a, #d7dee8); }
+.nivel--black::before    { background: linear-gradient(90deg, #000, #3a3a40); }
+
+.nivel__chip {
+  align-self: flex-start;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+.nivel--standard .nivel__chip { background: rgba(148, 163, 184, 0.15); color: #cbd5e1; }
+.nivel--gold .nivel__chip     { background: rgba(232, 201, 122, 0.15); color: #e8c97a; }
+.nivel--platinum .nivel__chip { background: rgba(215, 222, 232, 0.15); color: #e4eaf2; }
+.nivel--black .nivel__chip    { background: rgba(255, 255, 255, 0.1); color: #fff; }
+
+.nivel__limite {
+  font-size: 1.5rem;
+  color: var(--texto-fuerte);
+  font-weight: 600;
+}
+
+.nivel__limite-rotulo {
+  font-size: 0.82rem;
+  color: var(--texto-suave);
+  margin-bottom: 16px;
+}
+
+.nivel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 9px;
+  font-size: 0.89rem;
+  color: rgba(233, 213, 255, 0.72);
+}
+
+.nivel li {
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+}
+.nivel li::before {
+  content: "✓";
+  color: var(--primario);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.nota {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--texto-suave);
+}
+
+/* ── Beneficios ─────────────────────────────────────────────────────────── */
+
+.beneficio {
+  padding: 24px 0 24px 22px;
+  border-left: 2px solid var(--tarjeta-borde);
+}
+
+.beneficio h3 {
+  font-size: 1.04rem;
+  margin-bottom: 8px;
+}
+
+.beneficio p {
+  font-size: 0.93rem;
+  color: rgba(233, 213, 255, 0.68);
+}
+
+/* ── Pasos ──────────────────────────────────────────────────────────────── */
+
+.pasos {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 46px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  counter-reset: paso;
+}
+
+.pasos li {
+  background: var(--tarjeta);
+  border: 1px solid var(--tarjeta-borde);
+  border-radius: var(--radio-grande);
+  padding: 30px 26px;
+}
+
+.paso__numero {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--primario);
+  color: #14061f;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.pasos h3 { font-size: 1.1rem; margin-bottom: 8px; }
+.pasos p { font-size: 0.93rem; color: rgba(233, 213, 255, 0.68); }
+
+/* ── Preguntas ──────────────────────────────────────────────────────────── */
+
+.pregunta {
+  border-bottom: 1px solid var(--tarjeta-borde);
+}
+
+.pregunta summary {
+  cursor: pointer;
+  padding: 20px 34px 20px 0;
+  font-weight: 500;
+  color: var(--texto-fuerte);
+  list-style: none;
+  position: relative;
+}
+
+.pregunta summary::-webkit-details-marker { display: none; }
+
+.pregunta summary::after {
+  content: "";
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid var(--primario);
+  border-bottom: 2px solid var(--primario);
+  transform: translateY(-70%) rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.pregunta[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
+
+.pregunta p {
+  padding: 0 34px 22px 0;
+  color: rgba(233, 213, 255, 0.72);
+  font-size: 0.95rem;
+}
+
+/* ── Cierre ─────────────────────────────────────────────────────────────── */
+
+.cierre {
+  padding: 96px 0;
+  background:
+    radial-gradient(70% 140% at 50% 100%, rgba(124, 58, 237, 0.3) 0%, transparent 60%);
+  border-top: 1px solid var(--tarjeta-borde);
+}
+
+.cierre h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); margin-bottom: 14px; }
+.cierre .bajada { margin-inline: auto; }
+
+/* ── Pie ────────────────────────────────────────────────────────────────── */
+
+.pie {
+  background: #070111;
+  border-top: 1px solid var(--tarjeta-borde);
+  padding: 56px 0 28px;
+}
+
+.pie__grilla {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(3, 1fr);
+  gap: 34px;
+}
+
+.pie__logo { height: 30px; width: auto; }
+
+.pie__lema {
+  margin-top: 12px;
+  color: var(--texto-suave);
+  font-size: 0.92rem;
+}
+
+.pie h4 {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--texto-suave);
+  margin-bottom: 14px;
+}
+
+.pie nav a {
+  display: block;
+  padding: 5px 0;
+  font-size: 0.93rem;
+  color: rgba(233, 213, 255, 0.75);
+}
+.pie nav a:hover { color: var(--primario-claro); }
+
+.pie__legal {
+  margin-top: 44px;
+  padding-top: 22px;
+  border-top: 1px solid var(--tarjeta-borde);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  color: var(--texto-suave);
+}
+
+.pie__aviso { max-width: 44rem; }
+
+/* ── Aparición al hacer scroll ──────────────────────────────────────────── */
+
+/* Ojo con el `.con-js`: sin JavaScript no hay quien agregue `.visible`, así
+   que esconder por CSS a secas dejaría media landing invisible. La clase la
+   pone un script inline en el <head>, antes del primer pintado. */
+.con-js .revelar {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.con-js .revelar.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 1080px) {
+  .grilla--productos { grid-template-columns: repeat(2, 1fr); }
+  .grilla--niveles { grid-template-columns: repeat(2, 1fr); }
+  .grilla--beneficios { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 900px) {
+  .hero__grilla { grid-template-columns: 1fr; }
+  .hero__visual { order: -1; min-height: 250px; }
+  .bajada { margin-inline: auto; }
+  .hero__texto { text-align: center; }
+  .hero__acciones, .hero__sellos { justify-content: center; }
+  .pie__grilla { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 860px) {
+  /* El menú pasa a desplegarse bajo el header. Los accesos NO se esconden:
+     "Registrate" y "Home banking" son a lo que la gente viene. */
+  .menu-boton { display: flex; }
+
+  .navegacion {
+    position: absolute;
+    top: 72px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+    padding: 0 20px;
+    background: var(--fondo);
+    border-bottom: 1px solid var(--tarjeta-borde);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+  }
+
+  .navegacion.abierto { max-height: 340px; }
+
+  .navegacion a {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--tarjeta-borde);
+  }
+  .navegacion a:last-child { border-bottom: 0; }
+
+  .accesos { margin-left: auto; }
+  .boton--fantasma { padding: 10px 12px; }
+}
+
+/* El link de registro dentro del menú: sólo cuando el botón del header no
+   entra (ver el media query de 620 px). */
+.navegacion .solo-movil { display: none; }
+
+@media (max-width: 620px) {
+  .seccion { padding: 64px 0; }
+  .hero { padding: 56px 0 76px; }
+  .grilla--productos,
+  .grilla--niveles,
+  .grilla--beneficios,
+  .pasos { grid-template-columns: 1fr; }
+  .pie__grilla { grid-template-columns: 1fr; gap: 26px; }
+  .hero__acciones .boton { flex: 1 1 100%; }
+  /* A 360 px el logo y los dos accesos no entran juntos: el botón de registro
+     sale del header y pasa al menú. */
+  .accesos .boton--fantasma { display: none; }
+
+  .navegacion .solo-movil {
+    display: block;
+    color: var(--primario-claro);
+    font-weight: 600;
+  }
+}
+
+/* Respetar a quien pidió menos movimiento en su sistema. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .plastico--gold { animation: none; }
+  .con-js .revelar { opacity: 1; transform: none; transition: none; }
+  .boton:hover, .tarjeta:hover { transform: none; }
+}
