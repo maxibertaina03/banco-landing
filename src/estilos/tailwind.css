@@ -1,0 +1,6 @@
+@import 'tailwindcss' source(none);
+@source '../**/*.{js,ts,jsx,tsx}';
+
+/* Las animaciones que usan los componentes de shadcn (el acordeón, sobre
+   todo) salen de acá. */
+@import 'tw-animate-css';

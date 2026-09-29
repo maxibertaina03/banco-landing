@@ -1,0 +1,11 @@
+# Lo que NO va al contexto de build.
+node_modules
+npm-debug.log*
+
+# El dist se genera adentro de la imagen; copiar uno viejo sería publicar una
+# versión que nadie compiló acá.
+dist
+
+.git
+.gitignore
+README.md

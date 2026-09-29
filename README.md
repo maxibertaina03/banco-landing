@@ -1,62 +1,68 @@
 # banco-landing
 
 La cara pública de Banco Orbital: lo que ve alguien que todavía no es cliente.
-Se publica en `orbitalbank.com.ar`, y los dos botones de arriba a la derecha
+Se publica en `orbitalbank.com.ar`, y los dos accesos de arriba a la derecha
 llevan al portal (`app.orbitalbank.com.ar`) a registrarse o a ingresar.
 
-## Sin build, a propósito
+React + Vite + Tailwind v4, con los mismos componentes shadcn y los mismos
+colores que el home banking, para que pasar de una a otro no se sienta como
+cambiar de producto.
 
-Son tres archivos —`index.html`, `estilos.css`, `landing.js`— y la carpeta
-`assets/`. Nada de npm, nada de compilar: nginx los sirve tal cual.
-
-Es una decisión, no una limitación. El droplet tiene 512 MB y el portal ya se
-lleva toda la memoria cuando compila; una landing que no necesita build se
-publica con un `git pull` y no puede romper el deploy del banco. Los colores y
-la tipografía salen de los mismos valores que el portal
-(`banco-frontend/src/styles/theme.css`), así que pasar de una a otro no se nota.
-
-## Verla mientras la editás
+## Trabajar en ella
 
 ```bash
-python3 -m http.server 5250
-# http://localhost:5250
+npm install
+npm run dev      # http://localhost:5250
 ```
-
-Cualquier servidor estático sirve; no hay rutas ni API.
-
-## Publicarla
-
-Vive clonada en el droplet, al lado de los otros repos, y nginx la sirve desde
-ahí. Para publicar un cambio:
-
-```bash
-cd /opt/orbital/banco-landing && git pull
-```
-
-Listo: no hay imagen que reconstruir ni contenedor que reiniciar. El
-`deploy.sh` de `banco-infra` también la actualiza junto con todo lo demás.
 
 ## Cómo está armada
 
+```
+src/
+  datos/contenido.ts    todos los textos y datos, en un solo lugar
+  componentes/          una sección por archivo
+  ui/                   los componentes de shadcn que usa
+  estilos/theme.css     los colores, copiados del portal
+```
+
+**Para cambiar un texto, agregar un producto o corregir un límite no hace falta
+tocar JSX**: está todo en `datos/contenido.ts` y las secciones lo recorren.
+
 | Sección | Qué muestra |
 |---|---|
-| Hero | El lema y los dos accesos, con la tarjeta Gold flotando |
-| Productos | Las ocho cosas que el banco hace hoy, una tarjeta cada una |
-| Tarjetas | Los cuatro niveles de crédito con su límite y beneficios |
-| Beneficios | Por qué elegirlo, en seis frases |
-| Cómo empezar | Los tres pasos reales del alta |
-| Preguntas | Seis dudas típicas, en acordeón nativo (`<details>`) |
-| Cierre y pie | Última invitación, links y el aviso legal |
+| `Hero` | El lema y los dos accesos, con la tarjeta Gold flotando |
+| `Productos` | Las ocho cosas que el banco hace hoy |
+| `Niveles` | Los cuatro niveles de crédito con su límite y beneficios |
+| `Beneficios` | Por qué elegirlo, en seis frases |
+| `ComoEmpezar` | Los tres pasos reales del alta |
+| `Preguntas` | Seis dudas típicas, en un acordeón de shadcn |
+| `Cierre` y `Pie` | Última invitación, links y el aviso legal |
 
-Detalles que conviene no romper al editar:
+## Detalles que conviene no romper
 
-- **El efecto de aparición depende de la clase `con-js`**, que pone un script
-  inline en el `<head>`. Si se saca, y el JavaScript falla, media landing queda
-  invisible. Con `con-js` el contenido siempre se ve.
-- **El botón "Registrate" del header desaparece abajo de 620 px** porque no
-  entra al lado del de Home banking; ahí aparece dentro del menú. Si movés uno,
-  acordate del otro.
-- Los textos hablan de lo que el banco **hace de verdad**. Si se agrega un
-  producto al portal, esta página también se actualiza.
+- **Los colores salen de `estilos/theme.css`, copiado de
+  `banco-frontend/src/styles/theme.css`.** Si allá cambia un token, acá también:
+  son dos apps distintas que tienen que verse como una.
+- **Los componentes de `ui/` son copias del portal.** Así funciona shadcn: se
+  copia, no se instala. Si arreglás algo en uno, fijate si el portal tiene el
+  mismo problema.
+- **La aparición al hacer scroll (`Revelar`) nunca esconde contenido si el
+  JavaScript falla**: arranca visible y sólo se esconde cuando el efecto está
+  realmente activo. No lo cambies por un `opacity-0` en el CSS.
+- Los textos hablan de lo que el banco **hace de verdad**. Si el portal gana una
+  función, esta página también se actualiza.
 - El aviso del pie ("proyecto académico, no es una entidad financiera real") no
   se saca: la página imita a un banco y eso tiene que quedar claro.
+
+## Publicarla
+
+Corre en su propio contenedor (nginx con el `dist` adentro, sin Node). Desde el
+droplet:
+
+```bash
+cd /opt/orbital/banco-infra
+./scripts/deploy.sh landing
+```
+
+Eso trae los cambios, reconstruye la imagen y la levanta. El resto del banco no
+se toca.

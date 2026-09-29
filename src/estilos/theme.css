@@ -1,0 +1,133 @@
+/* Los colores de Banco Orbital.
+ *
+ * Copiados tal cual de banco-frontend/src/styles/theme.css: son los mismos
+ * tokens que usa el home banking, así que la landing y el portal se ven como
+ * un solo producto. Si allá cambia un color, acá también.
+ *
+ * No viene el bloque `.dark` del portal: la landing es oscura siempre.
+ */
+
+:root {
+  --font-size: 16px;
+  --background: #0A0118;
+  --foreground: #E9D5FF;
+  --card: #1C0B2E;
+  --card-foreground: #E9D5FF;
+  --popover: #1C0B2E;
+  --popover-foreground: #E9D5FF;
+  --primary: #A855F7;
+  --primary-foreground: #FFFFFF;
+  --secondary: #2D1548;
+  --secondary-foreground: #E9D5FF;
+  --muted: #2D1548;
+  --muted-foreground: #9F7AEA;
+  --accent: #7C3AED;
+  --accent-foreground: #FFFFFF;
+  --destructive: #EF4444;
+  --destructive-foreground: #ffffff;
+  --border: rgba(168, 85, 247, 0.15);
+  --input: transparent;
+  --input-background: #2D1548;
+  --switch-background: #7C3AED;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: #A855F7;
+  --chart-1: #A855F7;
+  --chart-2: #C084FC;
+  --chart-3: #E9D5FF;
+  --chart-4: #7C3AED;
+  --chart-5: #DDD6FE;
+  --radius: 0.75rem;
+  --sidebar: #1C0B2E;
+  --sidebar-foreground: #E9D5FF;
+  --sidebar-primary: #A855F7;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #2D1548;
+  --sidebar-accent-foreground: #E9D5FF;
+  --sidebar-border: rgba(168, 85, 247, 0.15);
+  --sidebar-ring: #A855F7;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  html {
+    font-size: var(--font-size);
+    scroll-behavior: smooth;
+    /* La cabecera es sticky: sin esto, al saltar a una sección su título queda
+       tapado. */
+    scroll-padding-top: 5.5rem;
+  }
+
+  /* Una columna de grilla no se achica por debajo del texto más largo que
+     tiene adentro. En el celular eso estira la grilla fuera de la pantalla. */
+  .grid > * {
+    min-width: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* La tarjeta del hero flota. Los keyframes incluyen la inclinación porque la
+   animación pisa el `transform` de la clase: sin el rotate acá, al arrancar se
+   enderezaba de golpe. Con "menos movimiento" no corre, y ahí manda la clase. */
+@keyframes flotar {
+  0%,
+  100% {
+    transform: rotate(-6deg) translateY(0);
+  }
+  50% {
+    transform: rotate(-6deg) translateY(-14px);
+  }
+}
