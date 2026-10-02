@@ -18,8 +18,8 @@ import {
 
 /** A dónde van los dos accesos: son las rutas reales del portal. */
 export const PORTAL = {
-  ingresar: "https://app.orbitalbank.com.ar/ingresar",
-  registro: "https://app.orbitalbank.com.ar/registro",
+  ingresar: "https://app.orbital.net.ar/ingresar",
+  registro: "https://app.orbital.net.ar/registro",
 };
 
 export const SECCIONES = [

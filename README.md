@@ -1,8 +1,8 @@
 # banco-landing
 
 La cara pública de Banco Orbital: lo que ve alguien que todavía no es cliente.
-Se publica en `orbitalbank.com.ar`, y los dos accesos de arriba a la derecha
-llevan al portal (`app.orbitalbank.com.ar`) a registrarse o a ingresar.
+Se publica en `orbital.net.ar`, y los dos accesos de arriba a la derecha
+llevan al portal (`app.orbital.net.ar`) a registrarse o a ingresar.
 
 React + Vite + Tailwind v4, con los mismos componentes shadcn y los mismos
 colores que el home banking, para que pasar de una a otro no se sienta como
