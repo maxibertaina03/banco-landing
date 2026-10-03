@@ -26,6 +26,7 @@ export const SECCIONES = [
   { id: "productos", nombre: "Productos" },
   { id: "tarjetas", nombre: "Tarjetas" },
   { id: "beneficios", nombre: "Beneficios" },
+  { id: "app", nombre: "App" },
   { id: "como-empezar", nombre: "Cómo empezar" },
   { id: "preguntas", nombre: "Preguntas" },
 ];
@@ -156,6 +157,25 @@ export const BENEFICIOS = [
   {
     titulo: "Seguridad de banco",
     texto: "Ingreso verificado, cada operación auditada y datos cifrados de punta a punta.",
+  },
+];
+
+/**
+ * Cómo instalar el portal como app.
+ *
+ * El botón de instalar NO puede estar acá: una PWA se instala desde su propio
+ * origen, y la landing (orbital.net.ar) es distinto de app.orbital.net.ar. Un
+ * botón acá instalaría la landing, que no sirve de nada. Así que explicamos
+ * los pasos y mandamos al portal, donde el botón sí aparece.
+ */
+export const INSTALACION = [
+  {
+    sistema: "Android",
+    pasos: ["Entrá al home banking", "Tocá «Instalar app» arriba a la derecha", "Confirmá"],
+  },
+  {
+    sistema: "iPhone",
+    pasos: ["Entrá al home banking desde Safari", "Tocá Compartir", "Elegí «Agregar a pantalla de inicio»"],
   },
 ];
 
