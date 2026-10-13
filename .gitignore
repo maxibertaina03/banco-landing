@@ -1,2 +1,8 @@
 node_modules/
 dist/
+
+# Variables de entorno. La landing hoy no usa ninguna, pero el día que use una
+# (una API key de analítica, por ejemplo) el archivo no se tiene que colar.
+.env
+.env.*
+!.env.example
