@@ -176,6 +176,10 @@
   }
   78%,
   100% {
-    transform: translateX(220%) rotate(12deg);
+    /* 320% y no 220%: el destello mide un tercio de la tarjeta, así que un
+       220% deja su borde izquierdo en el 73% del ancho —todavía encima— y al
+       reiniciar el ciclo pegaba un salto. Para salir entero hace falta pasar
+       de 300%. */
+    transform: translateX(320%) rotate(12deg);
   }
 }
