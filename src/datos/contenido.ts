@@ -27,6 +27,7 @@ export const SECCIONES = [
   { id: "tarjetas", nombre: "Tarjetas" },
   { id: "beneficios", nombre: "Beneficios" },
   { id: "app", nombre: "App" },
+  { id: "prueba", nombre: "Probar" },
   { id: "como-empezar", nombre: "Cómo empezar" },
   { id: "preguntas", nombre: "Preguntas" },
 ];
@@ -178,6 +179,26 @@ export const INSTALACION = [
     pasos: ["Entrá al home banking desde Safari", "Tocá Compartir", "Elegí «Agregar a pantalla de inicio»"],
   },
 ];
+
+/**
+ * El modo prueba.
+ *
+ * La cátedra pidió que cualquiera pueda conocer el banco por dentro sin darse
+ * de alta: se escanea el QR y ya se entra con una cuenta que tiene plata y
+ * movimientos. Todo lo que se haga ahí es simulado y se borra al salir.
+ */
+export const PRUEBA = {
+  etiqueta: "Sin compromiso",
+  titulo: "Probalo sin ser cliente",
+  bajada:
+    "Escaneá el código y entrás con una cuenta de demostración: con saldo, con movimientos y con todo habilitado. Podés transferir, pagar servicios y cargar el celular como si fueras cliente.",
+  puntos: [
+    "No hace falta registrarse ni dejar ningún dato",
+    "El dinero es ficticio: nada de lo que hagas afecta cuentas reales",
+    "Al salir se borra todo lo que hiciste",
+  ],
+  pie: "También podés abrirlo desde esta misma computadora.",
+};
 
 export const PASOS = [
   {

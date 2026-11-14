@@ -3,6 +3,7 @@ import { Cabecera } from "./componentes/Cabecera";
 import { Cierre } from "./componentes/Cierre";
 import { ComoEmpezar } from "./componentes/ComoEmpezar";
 import { Instalacion } from "./componentes/Instalacion";
+import { Prueba } from "./componentes/Prueba";
 import { Hero } from "./componentes/Hero";
 import { Niveles } from "./componentes/Niveles";
 import { Pie } from "./componentes/Pie";
@@ -27,6 +28,7 @@ export function App() {
         <Niveles />
         <Beneficios />
         <Instalacion />
+      <Prueba />
         <ComoEmpezar />
         <Preguntas />
         <Cierre />
