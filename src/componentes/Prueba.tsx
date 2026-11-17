@@ -46,7 +46,7 @@ export function Prueba() {
 
           <div className="mt-7">
             <Button asChild size="lg" className="rounded-full px-8">
-              <a href={`${PORTAL.ingresar.replace(/\/ingresar$/, "")}/demo`}>
+              <a href={PORTAL.demo}>
                 Entrar al modo prueba
                 <ArrowRight className="h-4 w-4" />
               </a>

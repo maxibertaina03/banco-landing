@@ -20,6 +20,9 @@ import {
 export const PORTAL = {
   ingresar: "https://app.orbital.net.ar/ingresar",
   registro: "https://app.orbital.net.ar/registro",
+  // Abre una cuenta de prueba y entra al portal sin registrarse. Es la misma
+  // dirección que codifica el QR.
+  demo: "https://app.orbital.net.ar/demo",
 };
 
 export const SECCIONES = [
@@ -27,7 +30,7 @@ export const SECCIONES = [
   { id: "tarjetas", nombre: "Tarjetas" },
   { id: "beneficios", nombre: "Beneficios" },
   { id: "app", nombre: "App" },
-  { id: "prueba", nombre: "Probar" },
+  { id: "prueba", nombre: "Demo" },
   { id: "como-empezar", nombre: "Cómo empezar" },
   { id: "preguntas", nombre: "Preguntas" },
 ];

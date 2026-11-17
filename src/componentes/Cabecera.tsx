@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { LogIn, Menu, X } from "lucide-react";
+import { FlaskConical, LogIn, Menu, X } from "lucide-react";
 import logo from "../assets/orbital-logo.webp";
 import { Button } from "../ui/button";
 import { cn } from "../ui/utils";
@@ -41,8 +41,21 @@ export function Cabecera() {
           ))}
         </nav>
 
-        {/* Los dos accesos al sistema, que es a lo que la gente viene. */}
+        {/* Los accesos al sistema, que es a lo que la gente viene. */}
         <div className="ml-auto flex items-center gap-2 lg:ml-0">
+          {/* Entrar a probar sin registrarse. Va acá arriba y no sólo en su
+              sección, que queda a media página de scroll: quien llega a la
+              landing sin ser cliente tiene que poder entrar en un clic. */}
+          <Button
+            asChild
+            variant="ghost"
+            className="hidden rounded-full text-purple-100 hover:bg-primary/10 hover:text-white md:inline-flex"
+          >
+            <a href={PORTAL.demo}>
+              <FlaskConical className="h-4 w-4" />
+              Probar
+            </a>
+          </Button>
           <Button
             asChild
             variant="ghost"
@@ -91,6 +104,13 @@ export function Cabecera() {
               {seccion.nombre}
             </a>
           ))}
+          <a
+            href={PORTAL.demo}
+            className="flex items-center gap-2 border-b border-border py-4 font-semibold text-[#C084FC] md:hidden"
+          >
+            <FlaskConical className="h-4 w-4" />
+            Probar sin registrarme
+          </a>
           <a
             href={PORTAL.registro}
             className="block py-4 font-semibold text-[#C084FC] sm:hidden"
